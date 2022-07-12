@@ -25,7 +25,7 @@ module Salesforce
       raise Salesforce::Error, 'Refresh token is required' if blank? @refresh_token
       raise Salesforce::Error, 'Instance URL is required' if blank? @instance_url
 
-      refresh_token!
+      refresh_token! if @refresh_token.present?
       field!
     rescue Salesforce::Error => e
       raise e
