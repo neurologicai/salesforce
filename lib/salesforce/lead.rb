@@ -215,8 +215,13 @@ module Salesforce
     #
     # @return [void]
     def converter
+      # TODO: Adicionar todos os tipos de dados suportados na documentação.
+      @fields ||= {}
+
       @payload.each do |key, value|
-        type = @fields[key]["type"]
+        type = @fields.dig(key, "type")
+        next if type.blank?
+
         @payload[key] = parse_datetime(value) if type == "datetime"
         @payload[key] = parse_datetime(value) if type == "date"
         @payload[key] = parse_multipicklist(value) if type == "multipicklist"
@@ -225,7 +230,14 @@ module Salesforce
         @payload[key] = value.to_i if type == "int"
         @payload[key] = to_b(value) if type == "boolean"
         @payload[key] = value.to_s if type == "reference"
+        # TODO: Adicionar suporte para outros tipos de dados, se necessário.
+        # - Address
+        # - Lookup(User)
+        # - Lookup(Individual)
+        # - Lookup(User)
+        # - Lookup(User,Group)
       end
+
       remove_null_fields
     end
 

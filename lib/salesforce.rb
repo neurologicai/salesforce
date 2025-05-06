@@ -4,7 +4,7 @@ require "yaml"
 require "uri"
 require "json"
 require "net/http"
-require "active_support/time"
+require "active_support/all"
 require "logger"
 require "openssl"
 require "httparty"
@@ -13,6 +13,7 @@ require "u-case"
 # Salesforce is integration with Salesforce API.
 module Salesforce; end
 
+require "salesforce/overwrite"
 require "salesforce/debug"
 require "salesforce/timezone"
 require "salesforce/credentials"
