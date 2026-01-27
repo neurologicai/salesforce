@@ -14,7 +14,6 @@ require "u-case"
 module Salesforce; end
 
 require "salesforce/overwrite"
-require "salesforce/debug"
 require "salesforce/timezone"
 require "salesforce/credentials"
 require "salesforce/error"
