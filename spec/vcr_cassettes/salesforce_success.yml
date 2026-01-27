@@ -21,8 +21,8 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 201
+      message: Created
     headers:
       Date:
       - Fri, 02 May 2025 16:00:38 GMT
@@ -49,8 +49,6 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"message":"Unable to create/update fields: CreatedById. Please check
-        the security settings of this field and verify that it is read/write for your
-        profile or permission set.","errorCode":"INVALID_FIELD_FOR_INSERT_UPDATE","fields":["CreatedById"]}]'
+      string: '{"id":"00QHo00000zTe4XMAS","success":true,"errors":[]}'
   recorded_at: Fri, 02 May 2025 16:00:39 GMT
 recorded_with: VCR 6.3.1
