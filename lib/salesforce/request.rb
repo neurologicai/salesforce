@@ -41,7 +41,7 @@ module Salesforce
     # @raise [Salesforce::Error] Se a resposta não tiver um código de status 200 ou 201.
     def post(**kwargs)
       response = HTTParty.post(@url, headers: headers, body: kwargs[:payload]&.to_json)
-      @json = response
+      @json = response&.parsed_response&.presence || {}
       @status_code = response.code
       raise Salesforce::Error, handle_exception if @status_code != 201 && @status_code != 200
     end
@@ -51,7 +51,7 @@ module Salesforce
     # @raise [Salesforce::Error] Se a resposta não tiver um código de status 200.
     def get
       response = HTTParty.get(@url, headers: headers)
-      @json = response
+      @json = response&.parsed_response&.presence || {}
       @status_code = response.code
       raise Salesforce::Error, handle_exception if @status_code != 200
     end
@@ -61,7 +61,7 @@ module Salesforce
     # @raise [Salesforce::Error] Se a resposta não tiver um código de status 200 ou 201.
     def refresh
       response = HTTParty.post(@url, headers: headers_basic)
-      @json = response
+      @json = response&.parsed_response&.presence || {}
       @status_code = response.code
       raise Salesforce::Error, handle_exception if @status_code != 201 && @status_code != 200
     end
@@ -72,7 +72,7 @@ module Salesforce
     #
     # @return [String] A mensagem de erro extraída da resposta JSON.
     def handle_exception
-      exception_message = json.dig(0, "message") || json["error_description"] || json.to_s
+      exception_message = json.dig(0, "message") || json["error_description"] || json.to_s || "Unknown error"
       raise Salesforce::Error, exception_message
     end
 

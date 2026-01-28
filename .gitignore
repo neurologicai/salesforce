@@ -12,3 +12,6 @@ spec/config.yaml
 .rspec_status
 log/salesforce.log
 salesforce-*.gem
+node_modules/*
+*.json
+*.js
